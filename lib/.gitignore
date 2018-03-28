@@ -1,4 +1,7 @@
 # node modules
 node_modules/
 
+.gitignore
+node_modules
+
 README.md
