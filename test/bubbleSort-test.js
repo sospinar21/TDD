@@ -1,7 +1,9 @@
-const {assert} = require('chai');
+const chai = require('chai');
+const assert = chai.assert
 const bubbleSort = require('../lib/bubbleSort')
 const arr = require('../lib/index.js')
 const pry = require('pryjs')
+const sorted = require('is-sorted')
 // eval(pry.it)
 
 
@@ -15,44 +17,49 @@ describe('bubbleSort', () => {
     assert.isDefined(arr, Array(100))
   })
 
-   it('should return a new sorted array', () => {
-    assert.equal(bubbleSort(arr), arr)
-  })
+  it('should sort equal numbers', () => {
+    const newArray = [1,8,8,2,3,3];
+    assert.equal(sorted(newArray), false);
+    bubbleSort(newArray);
+    assert.equal(sorted(newArray), true);
+  });
 
-   it('should return a new sorted array', () => {
-    assert.equal(bubbleSort(arr), arr)
-  })
+  it('should arrange strings in an array in alphabetical order', () => {
+    const newArr = ['d', 'm', 'o', 'n', 'b'];
+    bubbleSort(newArr);
+    assert.equal(sorted(newArr), true);
+  });
 
-   it('should be a function', function() {
-    assert.isFunction(bubbleSort);
-  });
-  it('should arrange numbers in an array from lowest to highest.', function() {
-    const array = [3, 4, 5, 6, 234, 65, 234, 6432, 53642, 6, 6547, 87, 5689, 78, 6709, 6790, 609];
-    const bubbleSorted = bubbleSort(array);
-    const sorted = array.sort();
-    assert.equal(bubbleSorted, sorted);
-  });
-  it('should arrange strings in an array in alphabetical order', function () {
-    const array = ['the', 'fox', 'brown', 'quick', 'jumped'];
-    const bubbleSorted = bubbleSort(array);
-    const sorted = array.sort();
-    assert.equal(bubbleSorted, sorted);
-  });
-  it('should arrange a large array of numbers', function () {
-    const array = arrayGenerator(500, 100);
-    const bubbleSorted = bubbleSort(array);
-    const sorted = array.sort();
-    assert.equal(bubbleSorted, sorted);
+  it('should arrange numbers in an array from lowest to highest.', () => {
+    const array = [10, 10, 9, 6, 7, 9, 8, 1, 2, 3];
+    assert.equal(sorted(array), false);
+    bubbleSort(array);
+    assert.equal(sorted(array), true);
   });
   
-  it('should have the same length as original array', function () {
-    const array = [3, 4, 5, 6, 234, 65, 234, 6432, 53642, 6, 6547, 87, 5689, 78, 6709, 6790, 609]
-    const arrayLength = array.length;
-    const bubbleSorted = bubbleSort(array);
-    const bubbleLength = bubbleSorted.length;
-    assert.equal(bubbleLength, arrayLength);
+  it('should have the same length as original array', () => {
+    const array = [10, 13, 19, 2, 4, 6, 90, 80, 50]
+    bubbleSort(array);
+    assert.equal(array.length, 9);
   });
 
+  it('should sort an array with 100 elements', () => {
+    let arr = Array.from({length: 100}, () =>  Math.floor(Math.random() * 101))
+    bubbleSort(arr);
+    assert.equal(sorted(arr), true);
+  });
+
+  it('should sort an array with 10000 elements', () => {
+    let arr = Array.from({length: 10000}, () =>  Math.floor(Math.random() * 10001))
+    bubbleSort(arr);
+    assert.equal(sorted(arr), true);
+  });
+
+  it('should sort an array with 100000 elements', () => {
+    let arr = Array.from({length: 12000}, () =>  Math.floor(Math.random() * 12001))
+    bubbleSort(arr);
+    assert.equal(sorted(arr), true);
+  });
 
 
 })
