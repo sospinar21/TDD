@@ -49,14 +49,14 @@ describe('insertionSort', () => {
     assert.equal(sorted(arr), true);
   });
 
-  it('should sort an array with 10000 elements', () => {
-    let arr = Array.from({length: 10000}, () =>  Math.floor(Math.random() * 10001))
+  it('should sort an array with 1000 elements', () => {
+    let arr = Array.from({length: 1000}, () =>  Math.floor(Math.random() * 1001))
     insertionSort(arr);
     assert.equal(sorted(arr), true);
   });
 
-  it('should sort an array with 100000 elements', () => {
-    let arr = Array.from({length: 12000}, () =>  Math.floor(Math.random() * 12001))
+  it('should sort an array with 2000 elements', () => {
+    let arr = Array.from({length: 2000}, () =>  Math.floor(Math.random() * 2001))
     insertionSort(arr);
     assert.equal(sorted(arr), true);
   });

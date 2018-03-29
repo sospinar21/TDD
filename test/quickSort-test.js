@@ -1,9 +1,9 @@
 const chai = require('chai');
-assert = chai.assert
+const assert = chai.assert
 const quickSort = require('../lib/quickSort')
 const arr = require('../lib/index.js')
 const pry = require('pryjs')
-var sorted = require('is-sorted')
+const sorted = require('is-sorted')
 // eval(pry.it)
 
 
@@ -17,34 +17,74 @@ describe('quickSort', () => {
     assert.isDefined(arr, Array(100))
   })
 
-   it('expects to return an already sorted array', () => {
-    let array = [6];
-    quickSort(array);
-    assert.equal(array, 6)
-  })
+  it('should sort equal numbers', () => {
+    const newArray = [1,8,8,2,3,3];
+    assert.equal(sorted(newArray), false);
+    quickSort(newArray,newArray);
+    let sArray = [...quickSort(newArray), newArray, ...quickSort(newArray)]
+    assert.equal(sorted(sArray), true);
+  });
 
   it('should arrange strings in an array in alphabetical order', () => {
-    const newArray = ['denver', 'miami', 'orlando', 'nyc', 'boulder'];
-    assert.equal(sorted(newArray), false);
-    quickSort(newArray);
-    assert.equal(sorted(newArray), true);
+    const newArr = ['d', 'm', 'o', 'n', 'b'];
+    quickSort(newArr);
+    assert.equal(sorted(newArr), true);
   });
 
   it('should arrange numbers in an array from lowest to highest.', () => {
     const array = [10, 10, 9, 6, 7, 9, 8, 1, 2, 3];
-    assert.equal(sorted(array), false);
-    quickSort(array);
-    assert.equal(sorted(array), true);
+    quickSort(array,array);
+    let sArray = [...quickSort(array), array, ...quickSort(array)]
+    assert.equal(sorted(sArray), true);
   });
   
-  it('should have the same length as original array', function () {
+  it('should have the same length as original array', () => {
     const array = [10, 13, 19, 2, 4, 6, 90, 80, 50]
-    const arrayLength = array.length;
-    const bubbleSorted = quickSort(array);
-    const array2Length = bubbleSorted.length;
-    assert.equal(array2Length, arrayLength);
+    quickSort(array);
+    assert.equal(array.length, 9);
   });
 
+  it('should sort an array with 100 elements', () => {
+    let arr = Array.from({length: 100}, () =>  Math.floor(Math.random() * 101))
+    quickSort(arr,arr);
+    let newArr = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(newArr), true);
+  });
+
+  it('should sort an array with 10000 elements', () => {
+    let arr = Array.from({length: 10000}, () =>  Math.floor(Math.random() * 10001))
+    quickSort(arr);
+    let sArray = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(sArray), true);
+  });
+
+  it('should sort an array with 100000 elements', () => {
+    let arr = Array.from({length: 100000}, () =>  Math.floor(Math.random() * 100001))
+    quickSort(arr, arr);
+    let sArray = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(sArray), true);
+  });
+
+  it('should sort an array with 150000 elements', () => {
+    let arr = Array.from({length: 150000}, () =>  Math.floor(Math.random() * 150001))
+    quickSort(arr, arr);
+    let sArray = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(sArray), true);
+  });
+
+  it('should sort an array with 250000 elements', () => {
+    let arr = Array.from({length: 250000}, () =>  Math.floor(Math.random() * 250001))
+    quickSort(arr, arr);
+    let sArray = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(sArray), true);
+  });
+
+  it('should sort an array with 350000 elements', () => {
+    let arr = Array.from({length: 350000}, () =>  Math.floor(Math.random() * 350001))
+    quickSort(arr, arr);
+    let sArray = [...quickSort(arr), arr, ...quickSort(arr)]
+    assert.equal(sorted(sArray), true);
+  });
 
 
 })

@@ -1,9 +1,10 @@
 const chai = require('chai');
-assert = chai.assert
-const mergeSort = require('../lib/mergeSort')
+const assert = chai.assert
+const mergeSort = require('../lib/mergeSort.js')
+const merge = require('../lib/mergeSort.js')
 const arr = require('../lib/index.js')
 const pry = require('pryjs')
-var sorted = require('is-sorted')
+const sorted = require('is-sorted')
 // eval(pry.it)
 
 
@@ -17,34 +18,41 @@ describe('mergeSort', () => {
     assert.isDefined(arr, Array(100))
   })
 
-   it('expects to return an already sorted array', () => {
-    let array = [6];
-    mergeSort(array);
-    assert.equal(array, 6)
-  })
+  it('should sort equal numbers', () => {
+    const newArray = [1,8,8,2,3,3];
+    assert.equal(sorted(newArray), false);
+    merge(newArray,newArray);
+    assert.equal(sorted(newArray), true);
+  });
 
   it('should arrange strings in an array in alphabetical order', () => {
-    const newArray = ['denver', 'miami', 'orlando', 'nyc', 'boulder'];
-    assert.equal(sorted(newArray), false);
-    mergeSort(newArray);
-    assert.equal(sorted(newArray), true);
+    const newArr = ['d', 'm', 'o', 'n', 'b'];
+    merge(newArr,newArr);
+    assert.equal(sorted(newArr), true);
   });
 
   it('should arrange numbers in an array from lowest to highest.', () => {
     const array = [10, 10, 9, 6, 7, 9, 8, 1, 2, 3];
     assert.equal(sorted(array), false);
-    mergeSort(array);
+    merge(array,array);
     assert.equal(sorted(array), true);
   });
   
-  it('should have the same length as original array', function () {
-    const array = [10, 13, 19, 2, 4, 6, 90, 80, 50]
-    const arrayLength = array.length;
-    const mergeSorted = mergeSort(array);
-    const array2Length = mergeSorted.length;
-    assert.equal(array2Length, arrayLength);
+  it('should sort an array with 100 elements', () => {
+    let arr = Array.from({length: 100}, () =>  Math.floor(Math.random() * 101))
+    merge(arr,arr);
+    assert.equal(sorted(arr), true);
   });
 
+  it('should sort an array with 10000 elements', () => {
+    let arr = Array.from({length: 10000}, () =>  Math.floor(Math.random() * 10001))
+    merge(arr, arr);
+    assert.equal(sorted(arr), true);
+  });
 
-
+  it('should sort an array with 100000 elements', () => {
+    let arr = Array.from({length: 50000}, () =>  Math.floor(Math.random() * 50001))
+    merge(arr, arr);
+    assert.equal(sorted(arr), true);
+  });
 })
